@@ -11,8 +11,14 @@ The mental model should feel like Facebook Marketplace:
 
 But the wedge is intentionally narrow: homegrown produce and garden surplus only.
 
+## One-Sentence Positioning
+A local marketplace for homegrown produce, built to help neighbors sell, trade, and discover fresh food nearby.
+
+## Copy-Pastable MVP Definition
+MVP = a Facebook Marketplace-style local feed for homegrown produce in Somerville and Medfield, where users can create listings, browse nearby produce, message neighbors, and arrange pickup for sale, trade, or free exchange.
+
 ## Current Strategic Direction
-Based on the latest input, the product should launch as a narrow MVP with:
+The product should launch as a narrow MVP with:
 - two seed communities: Somerville and Medfield
 - one main category: homegrown produce only
 - three transaction types: sell, trade, free
@@ -87,17 +93,11 @@ Neighbors who want fresher or more interesting produce than they find in standar
 
 ## Product Principles
 1. Location first
-   - Nearby listings should always be the default experience.
-2. Category discipline
-   - Homegrown produce only for launch.
-3. Familiar UX
-   - The feed should feel obvious and instantly understandable.
-4. Lightweight trust
-   - Use basic trust cues early, not a huge reputation system.
-5. Trade is native
-   - Swapping should be just as easy as selling.
-6. Ship narrow
-   - Geography and scope stay tight until liquidity is proven.
+2. Freshness matters
+3. Fast listing creation wins
+4. Supply density matters more than feature depth
+5. Trust must be lightweight but visible
+6. Keep the marketplace narrow early
 
 ## Launch Recommendation
 ### Start with
@@ -120,6 +120,25 @@ Neighbors who want fresher or more interesting produce than they find in standar
 - multi-city expansion
 - broad inventory like crafts, plants, baked goods, eggs, or pantry items
 
+## Initial Geography Strategy
+### Phase 1 launch markets
+- Somerville, MA
+- Medfield, MA
+
+### Why these first
+- manageable scope
+- easier to seed supply density
+- easier to moderate
+- local network effects can form faster
+- easier to recruit initial growers manually
+
+### Geo constraint for MVP
+Users must choose:
+- Somerville
+- Medfield
+
+Only show listings within the selected launch zone at first.
+
 ## MVP Scope
 ### In scope
 - onboarding with location selection
@@ -134,6 +153,7 @@ Neighbors who want fresher or more interesting produce than they find in standar
 - reporting / flagging
 - admin moderation dashboard
 - pickup coordination through chat
+- mark listing complete
 
 ### Out of scope
 - in-app payments
@@ -147,72 +167,65 @@ Neighbors who want fresher or more interesting produce than they find in standar
 - escrow
 - multi-city rollout beyond the two launch communities
 
-## Core MVP Features
-### 1. Onboarding with Location Gate
-Users select their community and browsing radius.
-For MVP, activity is limited to Somerville and Medfield so the marketplace feels dense.
-
-### 2. Marketplace Feed
-A Facebook Marketplace-style feed of produce cards.
-
-Each listing should show:
-- produce image
-- title
-- sell / trade / free label
-- price if applicable
-- distance or neighborhood
-- freshness note
+## Core Features
+### A. Location-based home feed
+A Facebook Marketplace-style card feed with:
+- photo
+- item title
+- price or trade or free label
+- neighborhood / approximate distance
+- posted time
 - quantity
-- seller name
+- freshness indicator
 
-### 3. Listing Creation
-Create a listing in under 2 minutes.
+Why this matters: users need instant browse value.
 
-Required fields:
+### B. Listing creation
+Fields:
+- produce type
 - title
-- image
-- type: sell, trade, free
+- photos
 - quantity
-- pickup area
-- freshness / harvest note
-- short description
-
-Optional fields:
-- trade preference
+- unit
+- price or trade preference or free
+- description
+- harvest date / freshness
+- pickup neighborhood
 - availability window
-- variety details
 
-### 4. Listing Detail Page
-A fuller listing screen with:
-- larger image
-- product description
-- harvest/freshness info
-- exchange type
-- pickup area
-- seller profile summary
-- message CTA
+### C. Listing detail page
+- larger photos
+- full description
+- seller profile preview
+- freshness / harvest date
+- transaction type
+- seller general location, not exact
+- message seller CTA
+- save listing CTA
 
-### 5. Messaging
-Lightweight in-app messaging for:
-- item availability
-- trade details
-- pickup timing
-- porch pickup instructions
+### D. Messaging
+Simple 1:1 chat.
 
-### 6. Save / Favorite Listings
-Users can save listings to revisit later.
+Suggested prompts:
+- Is this still available?
+- Would you trade for herbs?
+- When can I pick up?
 
-### 7. Seller Profile
-Basic seller profile should include:
-- display name
+Optional auto-close when listing is marked complete.
+
+### E. Profile
+Basic only:
+- first name
+- profile photo
 - neighborhood
-- active listings
-- joined date
-- simple trust cues
+- number of listings
+- join date
 
-### 8. Reporting + Moderation
-Users can flag listings or accounts.
-Admins need a simple moderation dashboard to review issues quickly.
+### F. Moderation
+- report listing
+- block user
+- admin remove listing
+- admin suspend account
 
 ## User Stories
 ### Seller
@@ -231,23 +244,34 @@ Admins need a simple moderation dashboard to review issues quickly.
 - As an admin, I want to review flagged listings and users so the marketplace stays safe and relevant.
 - As an admin, I want to limit activity to launch geographies so supply stays dense.
 
+## Primary Workflows
+### Workflow 1: seller posts produce
+Sign up → choose town → create listing → upload photo → set price/trade/free → publish
+
+### Workflow 2: buyer finds produce
+Open app → browse local feed → tap listing → message seller → coordinate pickup
+
+### Workflow 3: listing completion
+Seller confirms pickup/trade → marks listing complete → listing removed from active feed
+
 ## Key Screens
-### A. Location Onboarding
+### A. Location onboarding
 - choose Somerville or Medfield
 - confirm local browsing intent
 
-### B. Home Feed
-- listing cards
-- local-first sorting
-- exchange type filters
-- freshness and distance cues
+### B. Home feed
+- nearby listings
+- newly posted
+- free produce
+- available for trade
+- seasonal picks
 
-### C. Listing Detail
+### C. Listing detail
 - full produce details
 - message CTA
 - grower summary
 
-### D. Create Listing
+### D. Create listing
 - simple photo-first flow
 - choose sell / trade / free
 - add quantity and pickup info
@@ -255,145 +279,216 @@ Admins need a simple moderation dashboard to review issues quickly.
 ### E. Inbox
 - lightweight conversation threads
 
-### F. Seller Profile
+### F. Seller profile
 - active listings
 - neighborhood identity
 - trust basics
 
-### G. Admin Moderation
+### G. Admin moderation
 - flagged listings queue
 - flagged users queue
 - remove / hide actions
 
-## Data Model
-### Users
-- id
-- display_name
-- neighborhood
-- city
-- profile_photo
-- bio
-- joined_at
-- launch_area
+## Filters for MVP
+Keep it simple:
+- town
+- produce type
+- free / sell / trade
+- newest
+- available now
 
-### Listings
-- id
-- user_id
-- title
-- description
-- category (produce only for MVP)
-- mode: sell | trade | free
+Later:
+- organic / pesticide-free
+- distance
 - price
-- quantity
-- unit
-- photos
-- harvest_note
-- availability_note
-- pickup_area
-- latitude
-- longitude
-- launch_area
-- created_at
-- status: active | reserved | sold | traded | gone | flagged
+- harvest date
 
-### Saved Listings
-- id
+## Data Model
+### User
 - user_id
-- listing_id
-- created_at
-
-### Message Threads
-- id
-- listing_id
-- buyer_id
-- seller_id
-- created_at
-- last_message_at
-
-### Messages
-- id
-- thread_id
-- sender_id
-- body
-- created_at
-
-### Flags
-- id
-- user_id
-- listing_id
-- reason
-- notes
+- first_name
+- profile_photo
+- town
+- neighborhood
 - created_at
 - status
 
-## What Makes It Different
-### Versus Facebook Marketplace
-- produce-specific cues
-- cleaner local food discovery
-- barter is first-class
-- less irrelevant inventory
-- freshness matters in the interface
+### Listing
+- listing_id
+- seller_id
+- town
+- neighborhood
+- produce_type
+- title
+- description
+- photos
+- quantity
+- unit
+- transaction_type
+- price
+- trade_interest
+- harvest_date
+- availability_text
+- status
+- created_at
 
-### Versus grocery apps
-- hyperlocal
-- seasonal
-- neighbor-driven
-- unique small-batch supply
+### Message thread
+- thread_id
+- listing_id
+- buyer_id
+- seller_id
+- messages
+- created_at
+- status
 
-### Versus formal farm marketplaces
-- built for tiny harvests
-- low-friction posting
-- more casual and neighborhood-friendly
+### Report
+- report_id
+- listing_id or user_id
+- reporter_id
+- reason
+- status
+- created_at
 
-## Biggest Risks
-### 1. Low liquidity
-If there are not enough listings nearby, the marketplace feels dead.
+## Trust and Safety
+This is one of the biggest risks.
 
-Mitigation:
-- launch in only two communities
-- seed supply first
+### MVP trust measures
+- approximate neighborhood, not exact address in feed
+- pickup details shared only in chat
+- report / block
+- community guidelines
+- produce-only category enforcement
+- manual moderation at launch
+- disclaimers around food handling and personal responsibility
 
-### 2. Trust friction
-People may hesitate to meet or consume backyard produce from strangers.
+### Risks
+- food safety concerns
+- bad actors / spam
+- low-quality listings
+- location privacy concerns
+- weak supply at launch
 
-Mitigation:
-- neighborhood-based identity
-- basic trust cues
-- moderation tools
-- clear pickup norms
+## Go-to-Market for MVP
+### Recommendation
+This product will fail without seeded supply. Start supply-first.
 
-### 3. Category sprawl
-If too many categories are added too early, the core value gets diluted.
+### Launch motion
+- recruit 25–50 initial growers across the two towns
+- manually onboard them
+- offer founding grower status
+- post example listings to make the feed feel alive
+- partner with garden clubs, local Facebook groups, schools, and neighborhood groups
+- create simple referral loop: invite a grower neighbor
 
-Mitigation:
-- keep produce-only discipline at launch
+### Early demand channels
+- local Facebook groups
+- garden clubs
+- community bulletin boards
+- neighborhood email groups
+- farmer / gardener word of mouth
 
-### 4. Complexity creep
-Payments, delivery, and heavy operations can slow shipping.
+## Feature Prioritization
+### Must-have
+- location selection
+- feed
+- listing creation
+- listing detail
+- messaging
+- mark as complete
+- admin moderation
 
-Mitigation:
-- chat-based pickup coordination only
-- no payments in MVP
+### Nice-to-have
+- favorites
+- seller badges
+- push notifications
+- simple search
 
-## Success Metrics
-### Supply
-- active listings per community
-- weekly active growers
+### Later
+- payments
+- map view
+- reviews
+- delivery coordination
+- waitlists for in-demand produce
+- recurring grower shops
+- seasonal trends
 
-### Demand
-- messages per listing
-- saves per listing
-- feed view to message conversion
+## UX Direction
+### Design reference
+Use a UI pattern similar to Facebook Marketplace:
+- card-based browse feed
+- big photos
+- minimal friction
+- local context visible everywhere
+- fast message CTA
+- clear free / trade / sale labels
 
-### Liquidity
-- percent of listings getting a message
-- average time to first message
-- percent of listings marked sold / traded / gone
+## Key Assumptions
+- people are willing to exchange small amounts of produce locally
+- local supply can be seeded in two towns
+- users trust neighbor pickup enough for lightweight transactions
+- most value comes from simple produce discovery, not full ecommerce
+- trade is a meaningful differentiator vs Facebook Marketplace
 
-### Quality
-- flag rate
-- moderation turnaround time
-- stale listing rate
+## Main Risks
+### Low supply density
+Empty marketplace kills retention.
+Mitigation: seed growers manually.
+
+### Food safety concerns
+Trust and reputation risk.
+Mitigation: clear disclaimers, produce-only rules, moderation.
+
+### Too much complexity
+Slow build, weak launch.
+Mitigation: keep scope tight.
+
+### Spam / misuse
+Marketplace quality drops fast.
+Mitigation: manual moderation, report/block.
+
+### Multi-town fragmentation
+Weak density in each area.
+Mitigation: limit to 2 towns initially.
+
+## KPI Framework
+### North star
+Successful local produce exchanges per week
+
+### Activation KPIs
+- % of new users who create first listing within 7 days
+- % of new users who send first message within first session
+- time to first listing
+- time to first message
+
+### Marketplace KPIs
+- active listings per town
+- listings with at least 1 message
+- message-to-exchange conversion rate
+- % of listings completed
+- average days to completion
+- free vs sell vs trade mix
+
+### Supply density KPIs
+- weekly active sellers
+- weekly active buyers
+- listings per town
+- repeat sellers within 30 days
+
+### Quality KPIs
+- report rate
+- spam removal rate
+- listing photo rate
+- % listings with harvest date filled in
+
+## MVP Success Criteria
+After the first 8–12 weeks, success looks like:
+- enough listings each week that the app feels alive in both towns
+- at least 30–40% of listings get a message
+- repeat seller behavior is visible
+- buyers return weekly to browse
+- moderation load is manageable
+
+If those do not happen, the issue is likely supply density, not UI polish.
 
 ## Current Product State
 What is live right now is still primarily a concept/demo shell.
@@ -406,13 +501,64 @@ What it does well:
 
 What it still needs to become the real MVP:
 - real listing data
-- onboarding with community selection
+- onboarding with town selection
 - listing creation flow
 - listing detail pages
 - messaging
 - saved listings
 - moderation tools
 - seller profiles
+- mark-as-complete flow
+
+## Recommendation on MVP Build Order
+### Phase 1
+- onboarding
+- town selection
+- browse feed
+- listing creation
+- listing details
+- messaging
+- moderation tools
+
+### Phase 2
+- favorites
+- notifications
+- search/filter improvements
+- seller badges / repeat grower label
+
+### Phase 3
+- lightweight payments
+- map view
+- ratings
+- expanded categories
+
+## Launch Plan
+### Week 1–2
+- finalize MVP requirements
+- design core flows
+- set up admin tooling
+- recruit first growers
+
+### Week 3–6
+- build and test MVP
+- preload initial listings
+- moderate beta usage manually
+
+### Week 7–8
+- soft launch in Somerville and Medfield
+- recruit more growers
+- collect feedback from first exchanges
+
+## Final Recommendation
+Build this as a tight local marketplace, not a broad community app.
+
+The real challenge is supply density, not product imagination.
+
+### Trade-offs
+- narrow category = better chance of marketplace liquidity
+- no payments at first = less friction to build and moderate
+- two towns only = stronger early density, less empty-feed risk
+- manual moderation = more work initially, but better trust
 
 ## Recommended Immediate Next Sprint
 ### Sprint goal
@@ -428,6 +574,7 @@ Turn the concept shell into a functioning hyperlocal produce marketplace MVP for
 7. Add seller profile pages
 8. Add reporting / flagging
 9. Add simple moderation dashboard
+10. Add mark-as-complete flow
 
 ## Decision Questions To Review
 1. Should free listings be as prominent as sell and trade at launch?

@@ -2,6 +2,8 @@ import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { getListing } from '@/lib/market-data'
 
+const prompts = ['Is this still available?', 'Would you trade for herbs?', 'When can I pick up?']
+
 export default function ListingDetailPage({ params }: { params: { id: string } }) {
   const listing = getListing(params.id)
 
@@ -12,7 +14,7 @@ export default function ListingDetailPage({ params }: { params: { id: string } }
   return (
     <div className="min-h-screen bg-[#f0f2f5] px-4 py-6 text-slate-900">
       <div className="mx-auto max-w-6xl space-y-6">
-        <Link href="/" className="text-sm font-medium text-green-700">← Back to feed</Link>
+        <Link href="/" className="text-sm font-medium text-green-700">← Back to welcome</Link>
         <div className="grid gap-6 lg:grid-cols-[1.2fr_0.8fr]">
           <section className="rounded-3xl bg-white p-6 shadow-sm">
             <div className="flex h-80 items-center justify-center rounded-3xl bg-gradient-to-br from-green-100 to-lime-50 text-8xl">
@@ -22,7 +24,11 @@ export default function ListingDetailPage({ params }: { params: { id: string } }
               <div className="flex flex-wrap items-start justify-between gap-4">
                 <div>
                   <h1 className="text-3xl font-bold">{listing.title}</h1>
-                  <div className="mt-2 text-lg font-semibold text-slate-900">
+                  <div className="mt-2 flex flex-wrap gap-2">
+                    <span className="rounded-full bg-green-50 px-3 py-1 text-sm font-semibold text-green-700">{listing.freshnessBadge}</span>
+                    <span className="rounded-full bg-slate-100 px-3 py-1 text-sm font-medium text-slate-700">Posted {listing.postedTime}</span>
+                  </div>
+                  <div className="mt-3 text-lg font-semibold text-slate-900">
                     {listing.transactionType === 'sell' ? listing.price : listing.transactionType === 'trade' ? 'Trade' : 'Free'}
                     <span className="ml-2 text-base font-medium text-slate-500">· {listing.quantity} {listing.unit}</span>
                   </div>
@@ -59,6 +65,11 @@ export default function ListingDetailPage({ params }: { params: { id: string } }
                 <Link href="/inbox" className="rounded-xl bg-green-600 px-4 py-3 text-center text-sm font-semibold text-white">Message seller</Link>
                 <button className="rounded-xl bg-slate-100 px-4 py-3 text-sm font-semibold text-slate-700">Save listing</button>
                 <button className="rounded-xl bg-slate-100 px-4 py-3 text-sm font-semibold text-slate-700">Report listing</button>
+              </div>
+              <div className="mt-4 flex flex-wrap gap-2">
+                {prompts.map((prompt) => (
+                  <button key={prompt} className="rounded-full bg-slate-100 px-4 py-2 text-sm font-medium text-slate-700">{prompt}</button>
+                ))}
               </div>
             </div>
 

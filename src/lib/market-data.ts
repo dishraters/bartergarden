@@ -22,6 +22,7 @@ export type Listing = {
   sellerPhoto: string
   postedTime: string
   savedCount: number
+  freshnessBadge: string
 }
 
 export const towns: Town[] = ['Somerville', 'Medfield']
@@ -47,6 +48,7 @@ export const listings: Listing[] = [
     sellerPhoto: '🧑‍🌾',
     postedTime: '2h ago',
     savedCount: 8,
+    freshnessBadge: 'Picked today',
   },
   {
     id: '2',
@@ -54,7 +56,7 @@ export const listings: Listing[] = [
     neighborhood: 'Davis Square',
     produceType: 'Cucumbers',
     title: 'Backyard cucumbers',
-    description: 'Overflow from this week. Looking to trade for basil, mint, or peppers.',
+    description: 'Overflow from this week. Looking to trade for basil, mint, or hot peppers.',
     photos: ['🥒'],
     quantity: '5',
     unit: 'cucumbers',
@@ -68,9 +70,31 @@ export const listings: Listing[] = [
     sellerPhoto: '👨‍🌾',
     postedTime: '1h ago',
     savedCount: 3,
+    freshnessBadge: 'Posted recently',
   },
   {
     id: '3',
+    town: 'Somerville',
+    neighborhood: 'Powder House',
+    produceType: 'Kale',
+    title: 'Curly kale bunches',
+    description: 'Tender leaves from a backyard patch. Good for soups, sautés, or smoothies.',
+    photos: ['🥬'],
+    quantity: '3',
+    unit: 'bunches',
+    transactionType: 'free',
+    harvestDate: 'Today',
+    freshness: 'Best tonight',
+    availabilityText: 'Front porch pickup before 8pm',
+    sellerName: 'Sara',
+    sellerJoinDate: 'April 2026',
+    sellerPhoto: '👩‍🌾',
+    postedTime: '38m ago',
+    savedCount: 4,
+    freshnessBadge: 'Free tonight',
+  },
+  {
+    id: '4',
     town: 'Medfield',
     neighborhood: 'Green Street area',
     produceType: 'Basil',
@@ -89,9 +113,10 @@ export const listings: Listing[] = [
     sellerPhoto: '👩‍🌾',
     postedTime: '45m ago',
     savedCount: 5,
+    freshnessBadge: 'Cut today',
   },
   {
-    id: '4',
+    id: '5',
     town: 'Medfield',
     neighborhood: 'North Meadows',
     produceType: 'Chard',
@@ -109,6 +134,29 @@ export const listings: Listing[] = [
     sellerPhoto: '🧑‍🌾',
     postedTime: '20m ago',
     savedCount: 2,
+    freshnessBadge: 'Posted recently',
+  },
+  {
+    id: '6',
+    town: 'Medfield',
+    neighborhood: 'Causeway Street area',
+    produceType: 'Zucchini',
+    title: 'Zucchini overflow',
+    description: 'Looking to trade extra zucchini for herbs or cherry tomatoes.',
+    photos: ['🥒'],
+    quantity: '4',
+    unit: 'zucchini',
+    transactionType: 'trade',
+    tradeInterest: 'Herbs or tomatoes',
+    harvestDate: 'Yesterday',
+    freshness: 'Still very fresh',
+    availabilityText: 'Pickup tomorrow after school hours',
+    sellerName: 'Ben',
+    sellerJoinDate: 'April 2026',
+    sellerPhoto: '👨‍🌾',
+    postedTime: '3h ago',
+    savedCount: 6,
+    freshnessBadge: 'Trade available',
   },
 ]
 

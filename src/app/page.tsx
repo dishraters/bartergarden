@@ -4,7 +4,7 @@ import type { Metadata } from 'next'
 export const metadata: Metadata = {
   title: 'BarterGarden | Welcome',
   description:
-    'Choose whether you want to sell produce, buy produce, or just look around BarterGarden.',
+    'A community-first marketplace for sharing extra homegrown produce in Somerville and Medfield.',
 }
 
 const heroImages = [
@@ -17,22 +17,28 @@ const heroImages = [
 const choices = [
   {
     title: 'Sell your produce',
-    body: 'Post extra harvest and connect with nearby neighbors who want fresh local food.',
+    body: 'Post extra harvest from your garden and connect with nearby neighbors who will use it.',
     href: '/create',
     cta: 'Start selling',
   },
   {
     title: 'Buy produce',
-    body: 'Browse homegrown produce in Somerville and Medfield and message growers directly.',
+    body: 'Browse homegrown produce from local growers in Somerville and Medfield.',
     href: '/listings/1',
     cta: 'Start browsing',
   },
   {
-    title: 'Just look',
-    body: 'Explore the marketplace first and get a feel for what is growing nearby.',
-    href: '/inbox',
-    cta: 'Preview the app',
+    title: 'Browse first',
+    body: 'Take a look around the market and see what is growing nearby before you jump in.',
+    href: '/profile',
+    cta: 'Explore the market',
   },
+]
+
+const trustItems = [
+  'Approximate neighborhood only',
+  'Exact pickup shared in chat',
+  'Manual moderation at launch',
 ]
 
 export default function Home() {
@@ -44,7 +50,7 @@ export default function Home() {
             key={image}
             className="absolute inset-0 bg-cover bg-center opacity-0 animate-[fadeHero_24s_infinite]"
             style={{
-              backgroundImage: `linear-gradient(rgba(0,0,0,0.58), rgba(0,0,0,0.68)), url(${image})`,
+              backgroundImage: `linear-gradient(rgba(0,0,0,0.56), rgba(0,0,0,0.70)), url(${image})`,
               animationDelay: `${index * 6}s`,
             }}
           />
@@ -71,11 +77,18 @@ export default function Home() {
               </div>
               <div className="space-y-4">
                 <h1 className="text-4xl font-bold leading-tight md:text-6xl">
-                  What brings you to BarterGarden?
+                  Share extra homegrown produce with neighbors in Somerville and Medfield.
                 </h1>
                 <p className="max-w-xl text-lg text-white/85 md:text-xl">
-                  We keep it simple. Sell your produce, buy produce, or just look around the local market first.
+                  A simple local market for fresh backyard harvests, neighbor-to-neighbor pickup, and less food going to waste.
                 </p>
+              </div>
+              <div className="flex flex-wrap gap-3 rounded-2xl border border-white/15 bg-white/10 p-4 text-sm text-white/90 backdrop-blur-sm">
+                {trustItems.map((item) => (
+                  <div key={item} className="rounded-full bg-white/10 px-4 py-2">
+                    {item}
+                  </div>
+                ))}
               </div>
             </section>
 

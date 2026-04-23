@@ -1,33 +1,34 @@
 import './globals.css'
 import type { Metadata, Viewport } from 'next'
 import { Analytics } from '@vercel/analytics/next'
+import { AuthProvider } from '@/lib/auth-context'
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://bartergarden.vercel.app'),
   title: {
-    default: 'BarterGarden | Local homegrown produce marketplace',
-    template: '%s | BarterGarden',
+    default: 'Medfield Garden Club Market',
+    template: '%s | Medfield Garden Club Market',
   },
   description:
-    'BarterGarden is a neighborhood-first marketplace for buying, selling, and trading homegrown produce nearby.',
+    'A simple private-first marketplace for Medfield Garden Club members to share extra homegrown produce.',
   manifest: '/manifest.webmanifest',
   openGraph: {
-    title: 'BarterGarden',
+    title: 'Medfield Garden Club Market',
     description:
-      'Buy, sell, and trade homegrown produce with neighbors nearby through a location-based marketplace.',
+      'Share extra homegrown produce with fellow Medfield Garden Club members.',
     url: 'https://bartergarden.vercel.app',
-    siteName: 'BarterGarden',
+    siteName: 'Medfield Garden Club Market',
     type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'BarterGarden',
+    title: 'Medfield Garden Club Market',
     description:
-      'A Facebook Marketplace style app for local homegrown produce and garden swaps.',
+      'A simple produce-sharing marketplace for the Medfield Garden Club.',
   },
   appleWebApp: {
     capable: true,
-    title: 'BarterGarden',
+    title: 'Garden Club Market',
     statusBarStyle: 'default',
   },
 }
@@ -44,8 +45,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        {children}
-        <Analytics />
+        <AuthProvider>
+          {children}
+          <Analytics />
+        </AuthProvider>
       </body>
     </html>
   )

@@ -1,11 +1,8 @@
-import Link from 'next/link'
-import type { Metadata } from 'next'
+'use client'
 
-export const metadata: Metadata = {
-  title: 'BarterGarden | Welcome',
-  description:
-    'A community-first marketplace for sharing extra homegrown produce in Somerville and Medfield.',
-}
+import Link from 'next/link'
+import { useState } from 'react'
+import { useAuth } from '@/lib/auth-context'
 
 const heroImages = [
   'https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=1600&q=80',
@@ -16,32 +13,44 @@ const heroImages = [
 
 const choices = [
   {
-    title: 'Sell your produce',
-    body: 'Post extra harvest from your garden and connect with nearby neighbors who will use it.',
+    title: 'Share what you grew',
+    body: 'Post extra produce from your garden so other Medfield Garden Club members can claim it.',
     href: '/create',
-    cta: 'Start selling',
+    cta: 'Post produce',
   },
   {
-    title: 'Buy produce',
-    body: 'Browse homegrown produce from local growers in Somerville and Medfield.',
+    title: 'Find produce nearby',
+    body: 'Browse what other club members have harvested and message them directly.',
     href: '/listings/1',
-    cta: 'Start browsing',
+    cta: 'Browse produce',
   },
   {
     title: 'Browse first',
-    body: 'Take a look around the market and see what is growing nearby before you jump in.',
+    body: 'Look around the club market, see what is active, and get familiar before posting.',
     href: '/profile',
-    cta: 'Explore the market',
+    cta: 'Preview the market',
   },
 ]
 
 const trustItems = [
+  'Medfield Garden Club only',
   'Approximate neighborhood only',
   'Exact pickup shared in chat',
-  'Manual moderation at launch',
 ]
 
 export default function Home() {
+  const { signInWithGoogle, user, loading } = useAuth()
+  const [authMessage, setAuthMessage] = useState<string>('')
+
+  const handleGoogleSignIn = async () => {
+    const result = await signInWithGoogle()
+    if (result.error) {
+      setAuthMessage(result.error.message)
+      return
+    }
+    setAuthMessage('Signed in successfully.')
+  }
+
   return (
     <div className="relative min-h-screen overflow-hidden bg-black text-white">
       <div className="absolute inset-0">
@@ -50,7 +59,7 @@ export default function Home() {
             key={image}
             className="absolute inset-0 bg-cover bg-center opacity-0 animate-[fadeHero_24s_infinite]"
             style={{
-              backgroundImage: `linear-gradient(rgba(0,0,0,0.56), rgba(0,0,0,0.70)), url(${image})`,
+              backgroundImage: `linear-gradient(rgba(0,0,0,0.58), rgba(0,0,0,0.72)), url(${image})`,
               animationDelay: `${index * 6}s`,
             }}
           />
@@ -60,12 +69,23 @@ export default function Home() {
       <div className="relative z-10 mx-auto flex min-h-screen max-w-6xl flex-col px-4 py-8">
         <header className="flex items-center justify-between gap-4">
           <div>
-            <div className="text-2xl font-bold tracking-tight text-white">🥕 BarterGarden</div>
-            <div className="text-sm text-white/80">Homegrown produce marketplace</div>
+            <div className="text-2xl font-bold tracking-tight text-white">🌿 Medfield Garden Club Market</div>
+            <div className="text-sm text-white/80">A simple produce-sharing market for club members</div>
           </div>
           <div className="flex gap-3">
-            <button className="rounded-full border border-white/30 px-4 py-2 text-sm font-semibold text-white">Log in</button>
-            <button className="rounded-full bg-white px-4 py-2 text-sm font-semibold text-slate-900">Create account</button>
+            {user ? (
+              <div className="rounded-full bg-white/15 px-4 py-2 text-sm font-semibold text-white backdrop-blur-sm">
+                {user.displayName || user.email}
+              </div>
+            ) : (
+              <button
+                onClick={handleGoogleSignIn}
+                disabled={loading}
+                className="rounded-full bg-white px-4 py-2 text-sm font-semibold text-slate-900 disabled:opacity-70"
+              >
+                {loading ? 'Loading...' : 'Sign in with Google'}
+              </button>
+            )}
           </div>
         </header>
 
@@ -73,14 +93,14 @@ export default function Home() {
           <div className="grid w-full gap-8 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
             <section className="max-w-2xl space-y-6">
               <div className="inline-flex rounded-full border border-white/20 bg-white/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-white/90 backdrop-blur-sm">
-                Somerville + Medfield only
+                Built for the Medfield Garden Club
               </div>
               <div className="space-y-4">
                 <h1 className="text-4xl font-bold leading-tight md:text-6xl">
-                  Share extra homegrown produce with neighbors in Somerville and Medfield.
+                  Share extra homegrown produce with fellow Medfield Garden Club members.
                 </h1>
                 <p className="max-w-xl text-lg text-white/85 md:text-xl">
-                  A simple local market for fresh backyard harvests, neighbor-to-neighbor pickup, and less food going to waste.
+                  Start with a simple, trusted flow for the club: post your harvest, browse what others have, and coordinate pickup through chat.
                 </p>
               </div>
               <div className="flex flex-wrap gap-3 rounded-2xl border border-white/15 bg-white/10 p-4 text-sm text-white/90 backdrop-blur-sm">
@@ -90,6 +110,7 @@ export default function Home() {
                   </div>
                 ))}
               </div>
+              {authMessage ? <div className="text-sm text-white/85">{authMessage}</div> : null}
             </section>
 
             <section className="grid gap-4">

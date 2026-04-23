@@ -2,9 +2,9 @@ import type { MetadataRoute } from 'next'
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: 'BarterGarden',
-    short_name: 'BarterGarden',
-    description: 'A neighborhood-first marketplace for selling and trading homegrown produce.',
+    name: 'Medfield Garden Club Market',
+    short_name: 'Garden Club Market',
+    description: 'A simple marketplace for Medfield Garden Club members to share extra homegrown produce.',
     start_url: '/',
     display: 'standalone',
     background_color: '#f0fdf4',

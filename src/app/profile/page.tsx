@@ -1,13 +1,13 @@
 import Link from 'next/link'
-import { listings, towns } from '@/lib/market-data'
+import { listings } from '@/lib/market-data'
 
-const selectedTown = 'Somerville'
-const visibleListings = listings.filter((listing) => listing.town === selectedTown)
+const visibleListings = listings
 
 const mapPins = [
-  { emoji: '🍅', area: 'Union Square', top: '24%', left: '36%' },
-  { emoji: '🥒', area: 'Davis Square', top: '40%', left: '58%' },
-  { emoji: '🥬', area: 'Powder House', top: '18%', left: '68%' },
+  { emoji: '🍅', area: 'Green Street area', top: '24%', left: '36%' },
+  { emoji: '🌿', area: 'North Meadows', top: '42%', left: '60%' },
+  { emoji: '🥒', area: 'Causeway Street area', top: '62%', left: '48%' },
+  { emoji: '🥬', area: 'Main Street side', top: '34%', left: '72%' },
 ]
 
 export default function BrowseFirstPage() {
@@ -20,18 +20,12 @@ export default function BrowseFirstPage() {
           <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
             <div>
               <div className="text-sm font-semibold uppercase tracking-wide text-green-700">Browse first</div>
-              <h1 className="mt-2 text-3xl font-bold">See what is growing nearby before you jump in.</h1>
+              <h1 className="mt-2 text-3xl font-bold">See what Medfield Garden Club members are sharing right now.</h1>
               <p className="mt-2 max-w-2xl text-slate-600">
-                This view is for people who want to get a feel for the market first. Browse produce, see rough local supply, and understand what is active in Somerville and Medfield.
+                This preview is designed for club members who want to get comfortable first. You can see what is available, where activity is clustered, and how simple the pickup flow feels.
               </p>
             </div>
-            <div className="flex flex-wrap gap-2">
-              {towns.map((town) => (
-                <div key={town} className={`rounded-full px-4 py-2 text-sm font-semibold ${town === selectedTown ? 'bg-green-600 text-white' : 'bg-slate-100 text-slate-700'}`}>
-                  {town}
-                </div>
-              ))}
-            </div>
+            <div className="rounded-full bg-green-600 px-4 py-2 text-sm font-semibold text-white">Medfield only</div>
           </div>
         </section>
 
@@ -40,24 +34,21 @@ export default function BrowseFirstPage() {
             <div className="mb-4 flex items-center justify-between gap-4">
               <div>
                 <h2 className="text-2xl font-bold">Map view</h2>
-                <p className="text-sm text-slate-500">Approximate neighborhood view only, not exact addresses.</p>
+                <p className="text-sm text-slate-500">Approximate neighborhood view only, never exact addresses.</p>
               </div>
-              <div className="rounded-full bg-slate-100 px-4 py-2 text-sm font-medium text-slate-700">Emoji markers by produce type</div>
+              <div className="rounded-full bg-slate-100 px-4 py-2 text-sm font-medium text-slate-700">Produce markers by emoji</div>
             </div>
 
             <div className="relative h-[440px] overflow-hidden rounded-3xl border border-slate-200 bg-gradient-to-br from-green-50 via-lime-50 to-emerald-100">
               <div className="absolute inset-0 opacity-60">
-                <div className="absolute left-[10%] top-[18%] h-24 w-40 rounded-full border border-white/60 bg-white/30" />
-                <div className="absolute left-[48%] top-[14%] h-28 w-44 rounded-full border border-white/60 bg-white/30" />
-                <div className="absolute left-[26%] top-[48%] h-32 w-52 rounded-full border border-white/60 bg-white/30" />
-                <div className="absolute left-[58%] top-[54%] h-24 w-40 rounded-full border border-white/60 bg-white/30" />
+                <div className="absolute left-[14%] top-[16%] h-24 w-40 rounded-full border border-white/60 bg-white/30" />
+                <div className="absolute left-[48%] top-[20%] h-28 w-44 rounded-full border border-white/60 bg-white/30" />
+                <div className="absolute left-[22%] top-[52%] h-32 w-52 rounded-full border border-white/60 bg-white/30" />
+                <div className="absolute left-[58%] top-[56%] h-24 w-40 rounded-full border border-white/60 bg-white/30" />
               </div>
 
-              <div className="absolute left-[12%] top-[10%] rounded-full bg-white/85 px-4 py-2 text-sm font-semibold text-slate-700 shadow-sm">
-                Somerville
-              </div>
-              <div className="absolute right-[10%] bottom-[12%] rounded-full bg-white/85 px-4 py-2 text-sm font-semibold text-slate-700 shadow-sm">
-                Medfield preview
+              <div className="absolute left-[10%] top-[10%] rounded-full bg-white/85 px-4 py-2 text-sm font-semibold text-slate-700 shadow-sm">
+                Medfield Garden Club area
               </div>
 
               {mapPins.map((pin) => (
@@ -79,7 +70,7 @@ export default function BrowseFirstPage() {
 
           <div className="space-y-6">
             <section className="rounded-3xl bg-white p-6 shadow-sm">
-              <h2 className="text-2xl font-bold">Nearby produce</h2>
+              <h2 className="text-2xl font-bold">Active club listings</h2>
               <div className="mt-4 grid gap-3">
                 {visibleListings.map((listing) => (
                   <Link key={listing.id} href={`/listings/${listing.id}`} className="rounded-2xl border border-slate-200 p-4 transition hover:border-green-300 hover:bg-green-50/40">
@@ -102,11 +93,11 @@ export default function BrowseFirstPage() {
             </section>
 
             <section className="rounded-3xl bg-white p-6 shadow-sm">
-              <h3 className="text-xl font-bold">Why this view works</h3>
+              <h3 className="text-xl font-bold">Why this works for the club</h3>
               <div className="mt-3 space-y-2 text-sm text-slate-600">
-                <p>It helps newcomers understand where activity is without needing exact addresses.</p>
-                <p>It makes the market feel alive before people commit to buying or listing.</p>
-                <p>It visually reinforces that this is local, lightweight, and neighborhood-based.</p>
+                <p>It gives members a friendly first look without needing to post right away.</p>
+                <p>It keeps the community feeling local, lightweight, and easy to trust.</p>
+                <p>It helps make the market feel active before the club builds repeat listing habits.</p>
               </div>
             </section>
           </div>

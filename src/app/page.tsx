@@ -1,132 +1,117 @@
 import Link from 'next/link'
 import type { Metadata } from 'next'
-import { getListingsByTown, towns } from '@/lib/market-data'
 
 export const metadata: Metadata = {
-  title: 'BarterGarden | Hyperlocal produce marketplace',
+  title: 'BarterGarden | Welcome',
   description:
-    'A Facebook Marketplace-style app for buying, selling, and trading homegrown produce in Somerville and Medfield.',
+    'Choose whether you want to sell produce, buy produce, or just look around BarterGarden.',
 }
 
-const selectedTown = 'Somerville' as const
-const feed = getListingsByTown(selectedTown)
-const filters = ['All', 'Sell', 'Trade', 'Free', 'Newest', 'Available now']
+const heroImages = [
+  'https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=1600&q=80',
+  'https://images.unsplash.com/photo-1461354464878-ad92f492a5a0?auto=format&fit=crop&w=1600&q=80',
+  'https://images.unsplash.com/photo-1518843875459-f738682238a6?auto=format&fit=crop&w=1600&q=80',
+  'https://images.unsplash.com/photo-1471193945509-9ad0617afabf?auto=format&fit=crop&w=1600&q=80',
+]
+
+const choices = [
+  {
+    title: 'Sell your produce',
+    body: 'Post extra harvest and connect with nearby neighbors who want fresh local food.',
+    href: '/create',
+    cta: 'Start selling',
+  },
+  {
+    title: 'Buy produce',
+    body: 'Browse homegrown produce in Somerville and Medfield and message growers directly.',
+    href: '/listings/1',
+    cta: 'Start browsing',
+  },
+  {
+    title: 'Just look',
+    body: 'Explore the marketplace first and get a feel for what is growing nearby.',
+    href: '/inbox',
+    cta: 'Preview the app',
+  },
+]
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-[#f0f2f5] text-slate-900">
-      <header className="sticky top-0 z-30 border-b border-slate-200 bg-white">
-        <div className="mx-auto flex max-w-7xl items-center gap-4 px-4 py-3">
-          <div className="flex items-center gap-3">
-            <div className="flex h-11 w-11 items-center justify-center rounded-full bg-green-600 text-2xl text-white">🥕</div>
-            <div>
-              <div className="text-xl font-bold tracking-tight text-green-700">BarterGarden</div>
-              <div className="text-xs text-slate-500">Hyperlocal produce marketplace</div>
-            </div>
-          </div>
-          <div className="hidden flex-1 items-center gap-3 md:flex">
-            <div className="flex-1 rounded-full bg-slate-100 px-4 py-3 text-sm text-slate-500">
-              Search tomatoes, basil, cucumbers...
-            </div>
-            <div className="rounded-full bg-slate-100 px-4 py-3 text-sm text-slate-600">📍 {selectedTown}</div>
-          </div>
-          <div className="ml-auto flex items-center gap-2">
-            <Link href="/create" className="rounded-full bg-green-600 px-4 py-2 text-sm font-semibold text-white">+ Create listing</Link>
-            <Link href="/inbox" className="rounded-full bg-slate-100 px-4 py-2 text-sm font-semibold text-slate-700">Inbox</Link>
-          </div>
-        </div>
-      </header>
+    <div className="relative min-h-screen overflow-hidden bg-black text-white">
+      <div className="absolute inset-0">
+        {heroImages.map((image, index) => (
+          <div
+            key={image}
+            className="absolute inset-0 bg-cover bg-center opacity-0 animate-[fadeHero_24s_infinite]"
+            style={{
+              backgroundImage: `linear-gradient(rgba(0,0,0,0.58), rgba(0,0,0,0.68)), url(${image})`,
+              animationDelay: `${index * 6}s`,
+            }}
+          />
+        ))}
+      </div>
 
-      <main className="mx-auto max-w-7xl px-4 py-6">
-        <section className="grid gap-6 lg:grid-cols-[280px_minmax(0,1fr)]">
-          <aside className="space-y-4">
-            <div className="rounded-2xl bg-white p-4 shadow-sm">
-              <h2 className="mb-3 text-lg font-bold">Choose your launch town</h2>
-              <div className="space-y-3">
-                {towns.map((town) => (
-                  <div key={town} className={`rounded-2xl border p-4 ${town === selectedTown ? 'border-green-500 bg-green-50' : 'border-slate-200'}`}>
-                    <div className="flex items-center justify-between">
-                      <div className="font-semibold">{town}</div>
-                      {town === selectedTown ? <span className="rounded-full bg-green-600 px-3 py-1 text-xs font-semibold text-white">Selected</span> : null}
-                    </div>
-                    <p className="mt-2 text-sm text-slate-600">Only show listings from this launch zone.</p>
-                  </div>
-                ))}
+      <div className="relative z-10 mx-auto flex min-h-screen max-w-6xl flex-col px-4 py-8">
+        <header className="flex items-center justify-between gap-4">
+          <div>
+            <div className="text-2xl font-bold tracking-tight text-white">🥕 BarterGarden</div>
+            <div className="text-sm text-white/80">Homegrown produce marketplace</div>
+          </div>
+          <div className="flex gap-3">
+            <button className="rounded-full border border-white/30 px-4 py-2 text-sm font-semibold text-white">Log in</button>
+            <button className="rounded-full bg-white px-4 py-2 text-sm font-semibold text-slate-900">Create account</button>
+          </div>
+        </header>
+
+        <main className="flex flex-1 items-center py-10">
+          <div className="grid w-full gap-8 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
+            <section className="max-w-2xl space-y-6">
+              <div className="inline-flex rounded-full border border-white/20 bg-white/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-white/90 backdrop-blur-sm">
+                Somerville + Medfield only
               </div>
-            </div>
-
-            <div className="rounded-2xl bg-white p-4 shadow-sm">
-              <h3 className="mb-3 text-lg font-bold">MVP screens</h3>
-              <div className="grid gap-2 text-sm">
-                <Link href="/" className="rounded-xl bg-slate-50 px-4 py-3 font-medium">Home feed</Link>
-                <Link href="/listings/1" className="rounded-xl bg-slate-50 px-4 py-3 font-medium">Listing detail</Link>
-                <Link href="/create" className="rounded-xl bg-slate-50 px-4 py-3 font-medium">Create listing</Link>
-                <Link href="/inbox" className="rounded-xl bg-slate-50 px-4 py-3 font-medium">Inbox</Link>
-                <Link href="/profile" className="rounded-xl bg-slate-50 px-4 py-3 font-medium">Profile</Link>
-                <Link href="/admin" className="rounded-xl bg-slate-50 px-4 py-3 font-medium">Moderation</Link>
-              </div>
-            </div>
-          </aside>
-
-          <div className="space-y-6">
-            <section className="rounded-3xl bg-gradient-to-r from-green-700 via-green-600 to-lime-500 p-6 text-white shadow-sm md:p-8">
-              <div className="max-w-3xl">
-                <div className="mb-3 inline-flex rounded-full bg-white/20 px-3 py-1 text-xs font-semibold uppercase tracking-wide">
-                  Built from the final MVP PRD
-                </div>
-                <h1 className="text-3xl font-bold leading-tight md:text-5xl">
-                  Browse homegrown produce nearby, message a neighbor, and arrange pickup fast.
+              <div className="space-y-4">
+                <h1 className="text-4xl font-bold leading-tight md:text-6xl">
+                  What brings you to BarterGarden?
                 </h1>
-                <p className="mt-4 max-w-2xl text-sm text-green-50 md:text-lg">
-                  The MVP is intentionally narrow: Somerville and Medfield only, produce only, and simple sell, trade, or free exchange.
+                <p className="max-w-xl text-lg text-white/85 md:text-xl">
+                  We keep it simple. Sell your produce, buy produce, or just look around the local market first.
                 </p>
-                <div className="mt-6 flex flex-wrap gap-3">
-                  <Link href="/create" className="rounded-full bg-white px-5 py-3 font-semibold text-green-700">List your harvest</Link>
-                  <Link href="/inbox" className="rounded-full border border-white/40 px-5 py-3 font-semibold text-white">Open inbox</Link>
-                </div>
               </div>
             </section>
 
-            <section className="rounded-2xl bg-white p-4 shadow-sm">
-              <div className="mb-4 flex flex-wrap gap-2">
-                {filters.map((chip, index) => (
-                  <button
-                    key={chip}
-                    className={`rounded-full px-4 py-2 text-sm font-medium ${index === 0 ? 'bg-green-600 text-white' : 'bg-slate-100 text-slate-700'}`}
-                  >
-                    {chip}
-                  </button>
-                ))}
-              </div>
-              <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-2">
-                {feed.map((listing) => (
-                  <Link key={listing.id} href={`/listings/${listing.id}`} className="overflow-hidden rounded-2xl border border-slate-200 bg-white transition hover:-translate-y-0.5 hover:shadow-md">
-                    <div className="flex h-44 items-center justify-center bg-gradient-to-br from-green-100 to-lime-50 text-7xl">
-                      {listing.photos[0]}
+            <section className="grid gap-4">
+              {choices.map((choice) => (
+                <Link
+                  key={choice.title}
+                  href={choice.href}
+                  className="rounded-3xl border border-white/15 bg-white/10 p-6 backdrop-blur-md transition hover:border-white/30 hover:bg-white/15"
+                >
+                  <div className="flex items-start justify-between gap-4">
+                    <div>
+                      <h2 className="text-2xl font-bold">{choice.title}</h2>
+                      <p className="mt-2 max-w-md text-sm leading-6 text-white/80">{choice.body}</p>
                     </div>
-                    <div className="space-y-3 p-4">
-                      <div className="flex items-start justify-between gap-3">
-                        <div>
-                          <div className="text-lg font-bold leading-tight">{listing.title}</div>
-                          <div className="mt-1 text-base font-semibold text-slate-900">{listing.transactionType === 'sell' ? listing.price : listing.transactionType === 'trade' ? 'Trade' : 'Free'} <span className="text-sm font-medium text-slate-500">· {listing.quantity} {listing.unit}</span></div>
-                        </div>
-                        <div className="rounded-full bg-green-50 px-3 py-1 text-xs font-semibold uppercase text-green-700">
-                          {listing.transactionType}
-                        </div>
-                      </div>
-                      <div className="space-y-1 text-sm text-slate-500">
-                        <div>{listing.neighborhood}, {listing.town}</div>
-                        <div>{listing.freshness}</div>
-                        <div>{listing.postedTime}</div>
-                      </div>
-                    </div>
-                  </Link>
-                ))}
-              </div>
+                    <div className="text-2xl text-white/80">→</div>
+                  </div>
+                  <div className="mt-5 inline-flex rounded-full bg-white px-4 py-2 text-sm font-semibold text-slate-900">
+                    {choice.cta}
+                  </div>
+                </Link>
+              ))}
             </section>
           </div>
-        </section>
-      </main>
+        </main>
+      </div>
+
+      <style>{`
+        @keyframes fadeHero {
+          0% { opacity: 0; }
+          8% { opacity: 1; }
+          25% { opacity: 1; }
+          33% { opacity: 0; }
+          100% { opacity: 0; }
+        }
+      `}</style>
     </div>
   )
 }

@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 import { useAuth } from '@/lib/auth-context'
 
 const heroImages = [
@@ -42,7 +42,21 @@ export default function Home() {
   const { signInWithGoogle, user, loading } = useAuth()
   const [authMessage, setAuthMessage] = useState<string>('')
 
+  const firebaseConfigured = useMemo(() => {
+    return Boolean(
+      process.env.NEXT_PUBLIC_FIREBASE_API_KEY &&
+      process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN &&
+      process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID &&
+      process.env.NEXT_PUBLIC_FIREBASE_APP_ID
+    )
+  }, [])
+
   const handleGoogleSignIn = async () => {
+    if (!firebaseConfigured) {
+      setAuthMessage('Google sign-in is not configured in production yet. Firebase keys still need to be added in Vercel.')
+      return
+    }
+
     const result = await signInWithGoogle()
     if (result.error) {
       setAuthMessage(result.error.message)
@@ -110,6 +124,11 @@ export default function Home() {
                   </div>
                 ))}
               </div>
+              {!firebaseConfigured ? (
+                <div className="rounded-2xl border border-amber-300/40 bg-amber-500/10 px-4 py-3 text-sm text-amber-100">
+                  Google sign-in still needs Firebase production keys in Vercel before members can log in.
+                </div>
+              ) : null}
               {authMessage ? <div className="text-sm text-white/85">{authMessage}</div> : null}
             </section>
 
